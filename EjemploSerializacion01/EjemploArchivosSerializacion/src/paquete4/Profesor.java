@@ -17,6 +17,7 @@ public class Profesor implements Serializable {
         tipo = t;
         cedula = ced;
     }
+
     
     public void establecerNombre(String n){
         nombre = n;

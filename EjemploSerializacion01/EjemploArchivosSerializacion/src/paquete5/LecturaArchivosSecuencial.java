@@ -19,6 +19,8 @@ public class LecturaArchivosSecuencial {
     private ObjectInputStream entrada;
     private ArrayList<Hospital> Hospitales;
     private String nombreArchivo;
+    private String identificador;
+    private Hospital hospitalBuscado;
     
     public LecturaArchivosSecuencial(String n) {
         nombreArchivo = n;
@@ -78,7 +80,7 @@ public class LecturaArchivosSecuencial {
         String cadena = "Lista de Hospitales\n";
         for (int i = 0; i < obtenerListaHospitales().size(); i++) {
             Hospital h = obtenerListaHospitales().get(i);
-            cadena = String.format("%s(%d)%s %d %.2f\n", cadena,i+1,h.obtenerNombre(),h.obtenerNumeroCamas(),h.obtenerPresupuesto());
+            cadena = String.format("%s(%d)%s %d %.2f %s\n", cadena,i+1,h.obtenerNombre(),h.obtenerNumeroCamas(),h.obtenerPresupuesto(),h.obtenerIdHospital());
         }
 
         return cadena;
@@ -96,4 +98,44 @@ public class LecturaArchivosSecuencial {
             System.exit(1);
         } // fin de catch
     } // 
+    public void establecerIdentificador(String n) {
+        identificador = n;
+    }
+    
+    public void establecerHospitalBuscado() {
+        // 
+        File f = new File(obtenerNombreArchivo());
+        if (f.exists()) {
+
+            while (true) {
+                try {
+                    Hospital registro = (Hospital) entrada.readObject();
+                    if(registro.obtenerIdHospital().equals(identificador)){
+                        hospitalBuscado = registro;
+                        break;
+                    }
+                    
+                } catch (EOFException endOfFileException) {
+                    return; // se llegó al fin del archivo
+                    // se puede usar el break;
+                    // System.err.println("Fin de archivo: " + endOfFileException);
+
+                } catch (IOException ex) {
+                    System.err.println("Error al leer el archivo: " + ex);
+                } catch (ClassNotFoundException ex) {
+                    System.err.println("No se pudo crear el objeto: " + ex);
+                } catch (Exception ex) {
+                    System.err.println("No hay datos en el archivo: " + ex);
+
+                }
+            }
+        }
+    }
+    public String obtenerIdentificador() {
+        return identificador;
+    }
+        
+    public Hospital obtenerHospitalBuscado() {
+        return hospitalBuscado;
+    }
 }

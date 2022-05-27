@@ -11,10 +11,13 @@ public class Ejecutor {
 
         // nombre del archivo
 
-        String nombreArchivo ="Hospital.data";
+        String nombreArchivo ="data/Hospital.data";
         Hospital h1 = new Hospital("Hospital UTPL",23,255.50);
+        h1.establecerIdHospital("111111");
         Hospital h2 = new Hospital("Hospital del seguro",56,567.89);
+        h2.establecerIdHospital("222222");
         Hospital h3 = new Hospital("Hospital del día",45,450.99);
+        h3.establecerIdHospital("333333");
         EscrituraArchivoSecuencial archivo = new EscrituraArchivoSecuencial(nombreArchivo);
         archivo.establecerRegistro(h1);
         archivo.establecerSalida();

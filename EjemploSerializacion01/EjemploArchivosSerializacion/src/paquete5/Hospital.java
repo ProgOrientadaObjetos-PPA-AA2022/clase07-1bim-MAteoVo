@@ -16,11 +16,19 @@ public class Hospital implements Serializable{
     private String nombre;
     private int numeroCamas;
     private double presupuesto;
+    private String idHospital;
     
     public Hospital(String nom, int numCam, double pre){
         nombre = nom;
         numeroCamas = numCam;
         presupuesto = pre;
+    }
+    
+    public void establecerIdHospital(String idHos){
+        idHospital = idHos;
+    }
+    public String obtenerIdHospital(){
+        return idHospital;
     }
     public void establecerNombre(String nom){
         nombre = nom;
@@ -41,5 +49,10 @@ public class Hospital implements Serializable{
     }
     public double obtenerPresupuesto(){
         return presupuesto;
+    }
+    public String toString() {
+        
+        String cadena = String.format("%s %d %.2f %s",nombre,numeroCamas,presupuesto,idHospital);
+        return cadena;
     }
 }
